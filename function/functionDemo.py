@@ -137,3 +137,24 @@ Python 中只有模块（module），类（class）以及函数（def、lambda�
 同理 闭包作用域是相对于另一个函数来说的
 引入模块就会产生局部作用域，相对于模块而言
  """
+ #global 和 nonlocal关键字,这两个关键字可以解决以上的变量作用域问题
+num = 1
+def fun1():
+    global num  # 需要使用 global 关键字声明,随后num的值就等同于函数外的num
+    print(num) 
+    num = 123
+    print(num)
+fun1()
+print(num)
+
+#如果要修改嵌套作用域（enclosing 作用域，外层非全局作用域）中的变量则需要 nonlocal 关键字了
+def outer():
+    num = 10
+    def inner():
+        nonlocal num   # nonlocal关键字声明，nonlocal作用于闭包的变量
+        num = 100
+        print(num)
+    inner()
+    print(num)
+outer()
+ 
